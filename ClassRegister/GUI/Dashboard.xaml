@@ -1,0 +1,253 @@
+﻿<Window x:Class="ClassRegister.GUI.Dashboard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClassRegister.GUI"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        mc:Ignorable="d"
+        Title="Dashboard" Height="450" Width="800"
+        AllowsTransparency="True" Background="Transparent"
+        ResizeMode="NoResize" WindowStyle="None"
+        WindowStartupLocation="CenterScreen"       
+        >
+    <Border CornerRadius="10" BorderThickness="2"
+            BorderBrush="Transparent">
+        <Border.Background>
+            <LinearGradientBrush>
+                <GradientStop Color="#000000" Offset="-0.107"/>
+                <GradientStop Color="#355c7d" Offset="0.888"/>
+            </LinearGradientBrush>
+        </Border.Background>
+        <Grid Loaded="Grid_Loaded" KeyDown="Grid_KeyDown">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="31*"/>
+                <ColumnDefinition Width="769*"/>
+            </Grid.ColumnDefinitions>
+            <Border CornerRadius="10" Style="{StaticResource spSlideLeft}" 
+                Margin="-320,0,600,0"
+                    Width="200" Grid.ColumnSpan="2">
+                <Border.Background>
+                    <LinearGradientBrush>
+                        <GradientStop Color="#142432" Offset="0.118"/>
+                        <GradientStop Color="#7c8fa1" Offset="1.35"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <StackPanel >
+                    <DockPanel>
+                        <Button x:Name="HBtn" Width="112" Height="30"
+                    Content="Strona główna" Click="HBtn_Click"
+                    Margin="44, 30, 0, 0"/>
+                        <iconPacks:PackIconMaterial Kind="Home" 
+                                                    VerticalAlignment="Center"
+                                                    Foreground="White"
+                                                    Opacity="0.7"
+                                                    HorizontalAlignment="Right"                                                    
+                                                Margin="0,30,12,0"/>
+                    </DockPanel>
+                    <DockPanel>
+                        <Button x:Name="GBtn" Width="112" Height="30" 
+                    Content="Moje oceny" Click="GBtn_Click"
+                    Margin="44, 30, 0, 0"/>
+                        <iconPacks:PackIconMaterial Kind="Notebook" 
+                                                    VerticalAlignment="Center"
+                                                    Foreground="White"
+                                                    Opacity="0.7"
+                                                    HorizontalAlignment="Right"                                                    
+                                                Margin="0,30,12,0"/>
+                    </DockPanel>
+                    <DockPanel>
+                        <Button x:Name="MSBtn" Width="112" Height="30" 
+                    Content="Moje przedmioty" Click="MSBtn_Click"
+                    Margin="44, 30, 0, 0"/>
+                        <iconPacks:PackIconMaterial Kind="BookOpenPageVariant" 
+                                                    VerticalAlignment="Center"
+                                                    Foreground="White"
+                                                    Opacity="0.7"
+                                                    HorizontalAlignment="Right"                                                    
+                                                    Margin="0,30,12,0"/>
+                    </DockPanel>
+                    <DockPanel>
+                        <Button x:Name="AGBtn" Width="112" Height="30" 
+                    Content="Dodaj ocenę" Click="AGBtn_Click"
+                    Margin="44, 30, 0, 0"/>
+                        <iconPacks:PackIconMaterial Kind="PencilPlus" 
+                                                    VerticalAlignment="Center"
+                                                    Foreground="White"
+                                                    Opacity="0.7"
+                                                    HorizontalAlignment="Right"                                                    
+                                                Margin="0,30,12,0"/>
+                    </DockPanel>
+                    <DockPanel>
+                        <Button x:Name="MABtn" Width="112" Height="30" 
+                    Content="Moje dane" Click="MABtn_Click"
+                    Margin="44, 30, 0, 0"/>
+                        <iconPacks:PackIconMaterial Kind="Account" 
+                                                    VerticalAlignment="Center"
+                                                    Foreground="White"
+                                                    Opacity="0.7"
+                                                    HorizontalAlignment="Right"                                                    
+                                                Margin="0,30,12,0"/>
+                    </DockPanel>
+                    <DockPanel>
+                        <Button x:Name="LOBtn" Width="112" Height="30" 
+                    Content="Wyloguj" Click="LOBtn_Click"
+                    Margin="44, 30, 0, 0"/>
+                        <iconPacks:PackIconMaterial Kind="Logout" 
+                                                    VerticalAlignment="Center"
+                                                    Foreground="White"
+                                                    Opacity="0.7"
+                                                    HorizontalAlignment="Right"                                                    
+                                                    Margin="0,30,12,0"/>
+                    </DockPanel>
+                    
+                    <DockPanel>
+                        <Button x:Name="IBtn" Width="112" Height="30" 
+                    Content="Info" Click="IBtn_Click"
+                    Margin="44, 30, 0, 0"/>
+                        <iconPacks:PackIconMaterial Kind="Information" 
+                                                    VerticalAlignment="Center"
+                                                    Foreground="White"
+                                                    Opacity="0.7"
+                                                    HorizontalAlignment="Right"                                                    
+                                                    Margin="0,30,12,0"/>
+                    </DockPanel>
+                </StackPanel>
+            </Border>
+            <Image
+            Source="C:\Users\Bartłomiej\Desktop\Projects\EDziennik\ClassRegister\ClassRegister\Images\watt.png" Grid.Column="1" 
+            Margin="493,133,10,20"
+            Opacity="0.3"
+            Name="WATImg"
+            Visibility="Hidden"/>
+            <Button Name="CloseBtn"
+                        Width="20" Height="20" Content="X"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Stretch"
+                        BorderThickness="20.0"
+                        HorizontalAlignment="Right"
+                        Click="CloseBtn_Click" 
+                        RenderTransformOrigin="16.035,3.827" 
+                        Grid.Column="1" Margin="0,10,10,416"/>
+            <Label Name="TitleL" Content="Strona gówna" FontSize="16"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Top" Grid.Column="1" Margin="0,20,352,0"/>
+            <local:HomeControl x:Name="HomeCtrl" 
+                          HorizontalAlignment="Left" Height="400" 
+                          VerticalAlignment="Top" Width="500" 
+                          Grid.Column="1" Margin="217,88,0,0"
+                          Visibility="Hidden"/>
+            <DataGrid Name="Grades" Grid.Column="1" HorizontalAlignment="Left" 
+                  Height="315" Margin="217,88,0,0" 
+                  VerticalAlignment="Top" Width="405"                  
+                  Visibility="Hidden"/>
+
+            <ListBox Name="SLBox"
+            HorizontalAlignment="Left" Height="234" 
+                 Margin="260,85,0,0" 
+                 VerticalAlignment="Top" 
+                 Width="400" Grid.Column="1"
+                 Visibility="Hidden"                
+                 />
+            <ListBox x:Name="GLBox"
+            HorizontalAlignment="Left" Height="234" 
+                 Margin="260,85,0,0" 
+                 VerticalAlignment="Top" 
+                 Width="400" Grid.Column="1"
+                 Visibility="Hidden"/>
+
+            <ListBox x:Name="STLBox"
+            HorizontalAlignment="Left" Height="234" 
+                 Margin="260,85,0,0" 
+                 VerticalAlignment="Top" 
+                 Width="400" Grid.Column="1"
+                 BorderThickness="0"
+                 Visibility="Hidden"/>
+            <ListBox x:Name="GRLBox"
+            HorizontalAlignment="Left" Height="234" 
+                 Margin="260,85,0,0" 
+                 VerticalAlignment="Top" 
+                 Width="400" Grid.Column="1"
+                 Visibility="Hidden"/>
+            <ListBox x:Name="SBLBox"
+            HorizontalAlignment="Left" Height="234" 
+                 Margin="260,85,0,0" 
+                 VerticalAlignment="Top" 
+                 Width="400" Grid.Column="1"
+                 Visibility="Hidden"/>
+
+            <Button Name="BBtn" Content="Wstecz" HorizontalAlignment="Left"
+                Margin="260,324,0,0" VerticalAlignment="Top" Width="98" 
+                Height="34" Click="BBtn_Click" Grid.Column="1"
+                Visibility="Hidden"
+                />
+            <Button Name="NBtn" Content="Dalej" HorizontalAlignment="Left" 
+                Margin="562,324,0,0" VerticalAlignment="Top" Width="98" 
+                Height="34" Click="NBtn_Click" Grid.Column="1"
+                Visibility="Hidden"/>
+            <Button Name="SBtn" Content="Pokaż dane" HorizontalAlignment="Left" 
+                Margin="562,324,0,0" VerticalAlignment="Top" Width="98" 
+                Height="34" Click="SBtn_Click"  Grid.Column="1"
+                Visibility="Hidden"/>
+
+            <Label Name="FNLabel"
+               VerticalAlignment="Top" 
+               Grid.Column="1" 
+               Margin="358,88,0,0" 
+               Height="60" Width="400"/>
+            <Label Name="LNLabel"
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Top" Grid.Column="1" Margin="358,128,0,0" 
+               Height="60" Width="400" />
+            <Label Name="EMLabel"
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Top" Grid.Column="1" Margin="358,168,0,0" 
+               Height="60" Width="400"/>
+            <Label Name="GLabel"
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Top" Grid.Column="1" Margin="358,208,0,0" 
+               Height="60" Width="400" />
+            <Label Name="NRLabel"
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Top" Grid.Column="1" Margin="358,248,0,0" 
+               Height="60" Width="400" />
+            <Label Name="FL"
+               Content="Imię:"
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Top" Grid.Column="1" Margin="217,88,0,0" 
+               Height="60" Width="400" Visibility="Hidden"/>
+            <Label Name="LL"
+               Content="Nazwisko:"
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Top" Grid.Column="1" Margin="217,128,0,0" 
+               Height="60" Width="400" Visibility="Hidden"/>
+            <Label Name="EL"
+               Content="E-mail:"
+               HorizontalAlignment="Left" 
+               FontSize="20"
+               VerticalAlignment="Top" Grid.Column="1" Margin="217,168,0,0" 
+               Height="60" Width="400" 
+               Visibility="Hidden"/>
+            <Label Name="GL"
+               Content="Grupa:"
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Top" Grid.Column="1" Margin="217,208,0,0" 
+               Height="60" Width="400" 
+               Visibility="Hidden"/>
+            <Label Name="NRL"
+               Content="Numer Indeksu:"
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Top" Grid.Column="1" Margin="217,248,0,0" 
+               Height="60" Width="400" 
+               Visibility="Hidden"/>
+
+            <TextBlock Grid.Column="1" HorizontalAlignment="Left" 
+                   Height="315" Margin="217,88,0,0" TextWrapping="Wrap"                    
+                   VerticalAlignment="Top" Width="443" FontSize="16"
+                   Visibility="Hidden"
+                   Name="TBlock2"
+                       Foreground="White"/>
+        </Grid>
+    </Border>
+
+</Window>

@@ -1,0 +1,284 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClassRegister"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:controlzex="urn:controlzex" x:Class="ClassRegister.RegistrationWindow"
+        mc:Ignorable="d"
+        Title="RegistrationWindow" Height="450" Width="380"
+        AllowsTransparency="True" Background="Transparent"
+        ResizeMode="NoResize" WindowStyle="None" 
+        WindowStartupLocation="CenterScreen">
+    <Grid Loaded="Grid_Loaded" KeyDown="Grid_KeyDown">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Border CornerRadius="10" Grid.RowSpan="6">
+                <Border.Background>
+                    <LinearGradientBrush>
+                        <GradientStop Color="#000000" Offset="-0.107"/>
+                        <GradientStop Color="#355c7d" Offset="0.888"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+            
+            <StackPanel Grid.Row="0" VerticalAlignment="Center">
+                <TextBlock Text="Pomoc"
+                           TextAlignment="Center"                       
+                           Height="22"
+                           Width="100"
+                           FontSize="18"
+                           Margin="144,0,136,0"
+                           ToolTipService.ShowDuration="5000"
+                           Foreground="White"/>
+                <StackPanel.ToolTip>
+                    <ToolTip>
+                        <TextBlock Foreground="Black"
+                                   Name="HelpTip"/>
+                    </ToolTip>
+                </StackPanel.ToolTip>
+                
+            </StackPanel>
+            <StackPanel>
+                <Button x:Name="CloseBtn"
+                        Width="20" Height="20" Content="X"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Stretch"
+                        BorderThickness="20.0"
+                        HorizontalAlignment="Right"
+                        Click="CloseBtn_Click"
+                        Margin="5,5,5,5"/>
+            </StackPanel>
+            
+            <StackPanel Grid.Row="1" HorizontalAlignment="Center" >
+                <TextBox    Text="Imię"
+                            FontSize="18"
+                            HorizontalAlignment="Center"
+                            Width="235"
+                            HorizontalContentAlignment="Left"
+                            Height="25"
+                            Margin="0,5,0,5"
+                            x:Name ="FNBox"
+                            MouseDoubleClick="clearBox"
+                            ToolTipService.ShowDuration="5000">
+                    <TextBox.ToolTip>
+                        <ToolTip>
+                            <StackPanel>
+                                <TextBlock Foreground="Black" 
+                                           FontWeight="Bold">
+                                    Imię
+                                </TextBlock>
+                            </StackPanel>
+                        </ToolTip>
+                    </TextBox.ToolTip>
+                </TextBox>
+                
+                <Border Width="250"
+                       Height="2"
+                       Background="White"
+                       Opacity="0.5"/>
+                <TextBox    Text="Nazwisko"
+                            FontSize="18"
+                            HorizontalAlignment="Center"
+                            Width="235"
+                            HorizontalContentAlignment="Left"
+                            Height="25"
+                            Margin="0,10,0,10"
+                            x:Name ="LNBox"
+                            MouseDoubleClick="clearBox"
+                            ToolTipService.ShowDuration="5000">
+                    <TextBox.ToolTip>
+                        <ToolTip>
+                            <StackPanel>
+                                <TextBlock Foreground="Black" 
+                                           FontWeight="Bold">
+                                    Nazwisko
+                                </TextBlock>
+                            </StackPanel>
+                        </ToolTip>
+                    </TextBox.ToolTip>
+                </TextBox>
+            </StackPanel>
+            
+            <StackPanel Grid.Row="2" HorizontalAlignment="Center" >
+                <TextBox    Text="Nazwa użytkownika"
+                            FontSize="18"
+                            HorizontalAlignment="Center"
+                            Width="235"
+                            HorizontalContentAlignment="Left"
+                            Height="25"
+                            Margin="0,5,0,5"
+                            x:Name ="UBox"
+                            MouseDoubleClick="clearBox"
+                            ToolTipService.ShowDuration="5000">
+                    <TextBox.ToolTip>
+                        <ToolTip>
+                            <StackPanel>
+                                <TextBlock Foreground="Black" 
+                                           FontWeight="Bold">
+                                    Nazwa użytkownika
+                                </TextBlock>
+                            </StackPanel>
+                        </ToolTip>
+                    </TextBox.ToolTip>
+                </TextBox>
+                <Border Width="250"
+                       Height="2"
+                       Background="White"
+                       Opacity="0.5"/>
+                <TextBox    Text="Adres e-mail"
+                            FontSize="18"
+                            HorizontalAlignment="Center"
+                            Width="235"
+                            HorizontalContentAlignment="Left"
+                            Height="25"
+                            Margin="0,5,0,5"
+                            x:Name ="EBox"
+                            MouseDoubleClick="clearBox" 
+                            ToolTipService.ShowDuration="5000">
+                    <TextBox.ToolTip>
+                        <ToolTip>
+                            <StackPanel>
+                                <TextBlock Foreground="Black" 
+                                           FontWeight="Bold">
+                                    Adres e-mail
+                                </TextBlock>
+                            </StackPanel>
+                        </ToolTip>
+                    </TextBox.ToolTip>
+                </TextBox>
+            </StackPanel>
+
+            <StackPanel Grid.Row="3" HorizontalAlignment="Center">
+                <TextBox    Text="Nr indeksu (Id)"
+                            FontSize="18"
+                            HorizontalAlignment="Center"
+                            Width="235"
+                            HorizontalContentAlignment="Left"
+                            Height="25"
+                            Margin="0,5,0,5"
+                            x:Name ="CBox"
+                            ClipToBounds="True"
+                            MouseDoubleClick="clearBox"
+                            ToolTipService.ShowDuration="5000">
+                    <TextBox.ToolTip>
+                        <ToolTip>
+                            <StackPanel>
+                                <TextBlock Foreground="Black" 
+                                           FontWeight="Bold">
+                                    Numer indeksu (ID)
+                                </TextBlock>
+                            </StackPanel>
+                        </ToolTip>
+                    </TextBox.ToolTip>
+                </TextBox>
+                <Border Width="250"
+                       Height="2"
+                       Background="White"
+                       Opacity="0.5"/>
+                <PasswordBox FontFamily="Helvetica"
+                            FontWeight="Light"
+                            Password="Password"
+                            FontSize="18"
+                            HorizontalAlignment="Center"
+                            Foreground="White"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Width="235"
+                            HorizontalContentAlignment="Left"
+                            Opacity="0.5"
+                            Height="25"
+                            Margin="0,5,0,5"
+                            x:Name ="PBox"
+                            MouseDoubleClick="clearBox"
+                            ToolTipService.ShowDuration="5000">
+                    <PasswordBox.ToolTip>
+                        <ToolTip>
+                            <StackPanel>
+                                <TextBlock Foreground="Black" 
+                                           FontWeight="Bold">
+                                    Hasło
+                                </TextBlock>
+                            </StackPanel>
+                        </ToolTip>
+                    </PasswordBox.ToolTip>
+                </PasswordBox>
+            </StackPanel>
+
+            <StackPanel Grid.Row="4" HorizontalAlignment="Center" >
+                <StackPanel HorizontalAlignment="Center">
+                    <PasswordBox FontFamily="Helvetica"
+                            FontWeight="Light"
+                            Password="Password"
+                            FontSize="18"
+                            HorizontalAlignment="Center"
+                            Foreground="White"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Width="235"
+                            HorizontalContentAlignment="Left"
+                            Opacity="0.5"
+                            Height="25"
+                            Margin="0,10,0,10"
+                            x:Name ="RPBox"
+                            MouseDoubleClick="clearBox"
+                            ToolTipService.ShowDuration="5000">
+                        <PasswordBox.ToolTip>
+                            <ToolTip>
+                                <StackPanel>
+                                    <TextBlock Foreground="Black" 
+                                           FontWeight="Bold">
+                                    Powtórz hasło
+                                    </TextBlock>
+                                </StackPanel>
+                            </ToolTip>
+                        </PasswordBox.ToolTip>
+                    </PasswordBox>
+                    <Border Width="250"
+                       Height="2"
+                       Background="White"
+                       Opacity="0.5"/>
+                </StackPanel>
+
+            </StackPanel>
+            <StackPanel Grid.Row="5">
+                <StackPanel Orientation="Horizontal" Margin="0,50,0,0">
+                    <Button x:Name ="CancelBtn" Width="100" Height="40" 
+                            Content="Anuluj" Margin="60,-30,60,0" 
+                            Click="CloseBtn_Click"/>
+                    <Button x:Name ="ApplyBtn" Width="100" Height="40"
+                            Content="Zarejestruj" Margin="0,-30,0,0" 
+                            Click="ApplyBtn_Click"/>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Grid.Row="2">
+                <Border Width="250"
+                        Height="2"
+                        Background="White"
+                        Opacity="0.5"/>
+            </StackPanel>
+            <StackPanel Grid.Row="3">
+                <Border Width="250"
+                        Height="2"
+                        Background="White"
+                        Opacity="0.5"/>
+            </StackPanel>
+            <StackPanel Grid.Row="4">
+                <Border Width="250"
+                        Height="2"
+                        Background="White"
+                        Opacity="0.5"/>
+            </StackPanel>
+        </Grid>
+
+
+    </Grid>
+</Window>

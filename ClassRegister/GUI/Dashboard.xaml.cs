@@ -17,7 +17,6 @@ namespace ClassRegister.GUI
     /// <summary>
     /// Logika interakcji dla klasy Register.xaml
     /// </summary>
-    public delegate void LoadToGird(DataGrid param);
     public partial class Dashboard : Window
     {
         public static Handling.DashboardHandle DashH { get; private set; }

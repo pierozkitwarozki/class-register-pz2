@@ -128,8 +128,18 @@
                         HorizontalAlignment="Right"
                         Click="CloseBtn_Click" 
                         RenderTransformOrigin="16.035,3.827" 
-                        Grid.Column="1" Margin="0,10,10,416"/>
-            <Label Name="TitleL" Content="Strona gówna" FontSize="16"
+                        Grid.Column="1" Margin="0,10,10,416"
+                    />
+            <Button Name="MinBtn"
+                        Width="20" Height="20" Content="-"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Stretch"
+                        BorderThickness="20.0"
+                        HorizontalAlignment="Right"
+                        Click="MinBtn_Click" 
+                        RenderTransformOrigin="16.035,3.827" 
+                        Grid.Column="1" Margin="0,10,40,416"/>
+            <Label Name="TitleL" Content="Strona główna" FontSize="16"
                    HorizontalAlignment="Right"
                    VerticalAlignment="Top" Grid.Column="1" Margin="0,20,352,0"/>
             <local:HomeControl x:Name="HomeCtrl" 

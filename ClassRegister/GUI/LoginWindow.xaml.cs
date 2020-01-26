@@ -41,7 +41,7 @@ namespace ClassRegister
             exit.ShowDialog();
             if (exit.Exit_state == true)
             {
-                this.Close();
+                this.Close();               
             }            
         }
 
@@ -104,6 +104,11 @@ namespace ClassRegister
                 info.Assign("Niepoprawne hasło lub login.");
                 info.ShowDialog();
             }
+        }
+
+        private void MinBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
         }
     } 
 }

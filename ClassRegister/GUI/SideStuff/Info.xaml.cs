@@ -22,16 +22,17 @@ namespace ClassRegister
         //To mój taki własny, ładniejszy MessageBox
         public Info()
         {
-            InitializeComponent();
-               
+            InitializeComponent();   
         }
         public void Assign(string text)
         {
+            //Przypisanie tekstu podanego w parametrze do tekst bloku
             this.TBlock.Text = text; 
         }
 
         private void OBtn_Click(object sender, RoutedEventArgs e)
         {
+            
             this.Close();
         }
 

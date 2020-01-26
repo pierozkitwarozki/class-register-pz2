@@ -32,14 +32,21 @@
             <StackPanel VerticalAlignment="Center"/>
 
             
-                <Button Name="CloseBtn"
+                <Button Name="CloseBtn"                       
                         Width="20" Height="20" Content="X"
-                        HorizontalContentAlignment="Center"
-                        VerticalContentAlignment="Stretch"
-                        BorderThickness="20.0"
+                        HorizontalContentAlignment="Center"                                              
+                        VerticalContentAlignment="Stretch"                        
                         HorizontalAlignment="Right"
                         Click="CloseBtn_Click"
                         Margin="0,10,10,195"
+                        />
+               <Button Name="MinBtn"
+                        Width="20" Height="20" Content="-"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Stretch"                       
+                        HorizontalAlignment="Right"
+                        Click="MinBtn_Click"
+                        Margin="0,10,40,195"
                         />
             <Image Source="/ClassRegister;component/Image/watt.png"
                        Height="162" 

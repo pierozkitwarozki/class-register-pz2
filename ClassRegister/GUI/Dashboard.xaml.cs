@@ -120,11 +120,18 @@ namespace ClassRegister.GUI
 
         private void SBtn_Click(object sender, RoutedEventArgs e)
         {
+            //Pokazywanie informacji o nauczycielu
             if (infoClik == false)
             {
                 this.ShowTeacherInfoAsync();
             }
             else this.ShowMySubjectsAsync();            
+        }
+
+        private void MinBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //Minimalizowanie okna
+            this.WindowState = WindowState.Minimized;
         }
 
 
@@ -497,6 +504,6 @@ namespace ClassRegister.GUI
             HomeCtrl.Visibility = Visibility.Visible;
         }
 
-
+        
     }
 }

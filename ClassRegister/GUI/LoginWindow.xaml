@@ -61,7 +61,7 @@
                             Height="25"
                             Margin="63,0,0,0"
                             Name ="UBox"
-                            MouseDoubleClick="clearBox"
+                            MouseDoubleClick="ClearBox"
                             ToolTipService.ShowDuration="5000">
                         <TextBox.ToolTip>
                             <ToolTip>
@@ -100,7 +100,7 @@
                             Height="25"
                             Margin="63,0,0,0"
                             Name="PBox"
-                            MouseDoubleClick="clearBox"
+                            MouseDoubleClick="ClearBox"
                             ToolTipService.ShowDuration="5000">
                         <PasswordBox.ToolTip>
                             <ToolTip>

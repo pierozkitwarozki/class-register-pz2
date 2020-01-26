@@ -47,19 +47,8 @@ namespace ClassRegister
 
         private void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (SignUp.USignUp(UBox.Text.ToString(), PBox.Password.ToString())!=null)
-            {
-                LUser = SignUp.USignUp(UBox.Text.ToString(), PBox.Password.ToString());
-                GUI.Dashboard register = new GUI.Dashboard();
-                this.Close();
-                register.ShowDialog();               
-            }
-            else
-            {
-                Info info = new Info();
-                info.Assign("Niepoprawne hasło lub login.");
-                info.ShowDialog();
-            }
+            //zaloguj
+            this.LogIn();
         }
 
         private void RegisterBtn_Click(object sender, RoutedEventArgs e)
@@ -86,7 +75,7 @@ namespace ClassRegister
             
         }
 
-        private void clearBox(object sender, MouseButtonEventArgs e)
+        private void ClearBox(object sender, MouseButtonEventArgs e)
         {
             //Czyszczenie boxów double clickiem
             if (UBox.IsFocused)
@@ -96,6 +85,24 @@ namespace ClassRegister
             else if (PBox.IsFocused)
             {
                 PBox.Clear();
+            }
+        }
+
+        private void LogIn()
+        {
+            //Metoda odpowiadająca za logowanie
+            if (SignUp.USignUp(UBox.Text.ToString(), PBox.Password.ToString()) != null)
+            {
+                LUser = SignUp.USignUp(UBox.Text.ToString(), PBox.Password.ToString());
+                GUI.Dashboard register = new GUI.Dashboard();
+                this.Close();
+                register.ShowDialog();
+            }
+            else
+            {
+                Info info = new Info();
+                info.Assign("Niepoprawne hasło lub login.");
+                info.ShowDialog();
             }
         }
     } 

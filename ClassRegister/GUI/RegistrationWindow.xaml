@@ -28,7 +28,7 @@
                     </LinearGradientBrush>
                 </Border.Background>
             </Border>
-            
+
             <StackPanel Grid.Row="0" VerticalAlignment="Center">
                 <TextBlock Text="Pomoc"
                            TextAlignment="Center"                       
@@ -44,7 +44,7 @@
                                    Name="HelpTip"/>
                     </ToolTip>
                 </StackPanel.ToolTip>
-                
+
             </StackPanel>
             <StackPanel>
                 <Button x:Name="CloseBtn"
@@ -56,7 +56,7 @@
                         Click="CloseBtn_Click"
                         Margin="5,5,5,5"/>
             </StackPanel>
-            
+
             <StackPanel Grid.Row="1" HorizontalAlignment="Center" >
                 <TextBox    Text="Imię"
                             FontSize="18"
@@ -79,7 +79,7 @@
                         </ToolTip>
                     </TextBox.ToolTip>
                 </TextBox>
-                
+
                 <Border Width="250"
                        Height="2"
                        Background="White"
@@ -106,7 +106,7 @@
                     </TextBox.ToolTip>
                 </TextBox>
             </StackPanel>
-            
+
             <StackPanel Grid.Row="2" HorizontalAlignment="Center" >
                 <TextBox    Text="Nazwa użytkownika"
                             FontSize="18"

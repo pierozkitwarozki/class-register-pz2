@@ -495,8 +495,7 @@ namespace ClassRegister.GUI
         }
 
         private async void LoadDashboardAsync()
-        {
-            
+        {           
             List<Task<List<String>>> tasks = new List<Task<List<string>>>();
             tasks.Add(Task.Run(() => DashH.DataLoadFirstStepAsync()));
             var items = await Task.WhenAll(tasks);

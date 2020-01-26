@@ -41,7 +41,7 @@
                         Click="CloseBtn_Click"
                         Margin="0,10,10,195"
                         />
-                <Image Source="C:\Users\Bartłomiej\Desktop\Projects\EDziennik\ClassRegister\ClassRegister\Images\watt.png" 
+            <Image Source="/ClassRegister;component/Image/watt.png"
                        Height="162" 
                        Margin="125,32,126,31"/>
             

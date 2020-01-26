@@ -73,7 +73,7 @@ namespace ClassRegister
             }
         }
 
-        private void clearBox(object sender, MouseButtonEventArgs e)
+        private void ClearBox(object sender, MouseButtonEventArgs e)
         {
             //Czysczenie textBoxa/passwordBoxa, który jest obecnie 
             //kliknięty

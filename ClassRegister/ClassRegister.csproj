@@ -303,6 +303,9 @@
   <ItemGroup>
     <Resource Include="web-design.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\watt.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

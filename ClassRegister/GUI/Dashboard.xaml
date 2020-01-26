@@ -115,7 +115,7 @@
                 </StackPanel>
             </Border>
             <Image
-            Source="C:\Users\Bartłomiej\Desktop\Projects\EDziennik\ClassRegister\ClassRegister\Images\watt.png" Grid.Column="1" 
+            Source="/ClassRegister;component/Image/watt.png" Grid.Column="1" 
             Margin="493,133,10,20"
             Opacity="0.3"
             Name="WATImg"

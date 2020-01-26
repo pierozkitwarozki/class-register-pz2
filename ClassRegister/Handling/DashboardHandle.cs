@@ -55,7 +55,7 @@ namespace ClassRegister.Handling
             }           
         }
 
-        public List<string> t1DataLoad()
+        public async Task<List<string>> t1DataLoad()
         {
             //Metoda wczytująca przedmioty, których uczy zalogowany pracownik
             //Zwracająca listę z nazwami tych przedmiotów, 
@@ -64,11 +64,11 @@ namespace ClassRegister.Handling
                 using (SessionFactory.session)
                 {
                 List<string> subNamesList = new List<string>();
-                SubjectList = SessionFactory
+                SubjectList = await SessionFactory
                         .session
                         .QueryOver<Model.NSubject>()
                         .Where(x => x.TeacherId == this.User.Id)
-                        .List();
+                        .ListAsync();
                     foreach (var x in SubjectList)
                     {
                         subNamesList.Add(x.SubName);
@@ -77,7 +77,7 @@ namespace ClassRegister.Handling
                 }
 
         }
-        public List<string> t2DataLoad()
+        public async Task<List<string>> t2DataLoad()
         {
             //Metoda wczytująca grupy w których wykładany jest wybrany wcześniej przedmiot
             //i zwracająca listę z nazwami tych grup, analogicznie jak w t1DataLoad
@@ -86,11 +86,11 @@ namespace ClassRegister.Handling
             {
                     IList<Model.NSubjectGroupAttach> grList;
                     List<string> grNamesList = new List<string>();
-                    grList = SessionFactory
+                    grList = await SessionFactory
                     .session
                     .QueryOver<Model.NSubjectGroupAttach>()
                     .Where(x => x.SubId == SelectedSubId)
-                    .List();
+                    .ListAsync();
                 GroupList = new List<Model.NGroup>();
                 for (int i = 0; i < grList.Count; i++)
                 {
@@ -109,7 +109,7 @@ namespace ClassRegister.Handling
         }
 
 
-        public List<string> t3DataLoad()
+        public async Task<List<string>> t3DataLoad()
         {
             //Metoda wczytująca studentów z wybranej grupy i analogicznie
             //zwracająca listę z ich imionami + nazwiskami 
@@ -118,11 +118,11 @@ namespace ClassRegister.Handling
                 SessionFactory.Configuration();
                 using (SessionFactory.session)
                 {
-                    StudentList = SessionFactory.
+                    StudentList = await SessionFactory.
                         session
                         .QueryOver<Model.NStudent>()
                         .Where(x => x.GroupId == SelectedGrId)
-                        .List();
+                        .ListAsync();
                     foreach (var x in StudentList)
                     {
                         FLName = (x.FirstName + " " + x.LastName);
@@ -132,7 +132,7 @@ namespace ClassRegister.Handling
                 }
         }
 
-        public void dataLoad(DataGrid grid)
+        public async Task<List<Model.NStudentGrades>> dataLoad()
         {
             //Metoda wczytująca oceny zalogowanego studenta
             //I przypisująca je wraz z nazwą przedmiotu do 
@@ -141,12 +141,12 @@ namespace ClassRegister.Handling
                 SessionFactory.Configuration();
                 using (SessionFactory.session)
                 {
-                    IList<Model.NGrades> query1 = SessionFactory.session
+                    IList<Model.NGrades> query1 = await SessionFactory.session
                         .QueryOver<Model.NGrades>()
                         .Where(x => x.StudentId == this.User.Id)
-                        .List();
-                    IList<Model.NSubject> query2 = SessionFactory.session
-                        .QueryOver<Model.NSubject>().List();
+                        .ListAsync();
+                    IList<Model.NSubject> query2 = await SessionFactory.session
+                        .QueryOver<Model.NSubject>().ListAsync();
                     List<Model.NStudentGrades> gradeList = new List<Model.NStudentGrades>();
                     for (int i = 0; i < query1.Count; i++)
                     {
@@ -161,22 +161,22 @@ namespace ClassRegister.Handling
                             }
                         }
                     }
-                    grid.ItemsSource = gradeList;
+                    return gradeList;
                 }           
         }
 
-        public void addGrade(int studentId, int subjectId, float grade) //Metoda dodawania ocen
+        public async Task addGrade(int studentId, int subjectId, float grade) //Metoda dodawania ocen
         {
             SessionFactory.Configuration();
             using (SessionFactory.session)
             {
                 //Lista jednoelementowa która (nie) zawiera ocenę danego
                 //ucznia, z danego przedmiotu
-                IList<Model.NGrades> takenGrade =
+                IList<Model.NGrades> takenGrade = await
                     SessionFactory.session
                     .QueryOver<Model.NGrades>()
                     .Where(x => x.StudentId == studentId && x.SubId == subjectId)
-                    .List();
+                    .ListAsync();
                 SessionFactory.Configuration();
                 SessionFactory.session.BeginTransaction();
                 if (takenGrade.Count != 0)
@@ -187,7 +187,7 @@ namespace ClassRegister.Handling
                     Grade.StudentId = takenGrade.ElementAt(0).StudentId;
                     Grade.SubId = takenGrade.ElementAt(0).SubId;
                     Grade.Grade = grade;
-                    SessionFactory.session.SaveOrUpdate(Grade);
+                    await SessionFactory.session.SaveOrUpdateAsync(Grade);
                 }
                 else
                 {
@@ -196,14 +196,14 @@ namespace ClassRegister.Handling
                     Grade.Grade = grade;
                     Grade.StudentId = studentId;
                     Grade.SubId = subjectId;
-                    SessionFactory.session.Save(Grade);
+                    await SessionFactory.session.SaveAsync(Grade);
 
                 }
                 SessionFactory.session.Transaction.Commit();
             }
         }
 
-        public List<string> getSubjectInfo()
+        public async Task <List<string>> getSubjectInfo()
         {
             //Metoda zwraca litę z nazwami przedmiotów na które uczęszcza student,
             //lub które prowadzi pracownik, w zależności od tego kto jest zalogowany
@@ -213,15 +213,15 @@ namespace ClassRegister.Handling
                 List<string> subjectNames = new List<string>();
                 if (this.Student == true)
                 {
-                    IList<Model.NSubjectGroupAttach> query1 =
+                    IList<Model.NSubjectGroupAttach> query1 = await
                         SessionFactory.session
                         .QueryOver<Model.NSubjectGroupAttach>()
                         .Where(x => x.GroupId == this.StudentGroupId)
-                        .List();                   
-                    IList<Model.NSubject> query2 =
+                        .ListAsync();                   
+                    IList<Model.NSubject> query2 = await
                         SessionFactory.session
                         .QueryOver<Model.NSubject>()
-                        .List();
+                        .ListAsync();
                     for(int i=0; i<query1.Count(); i++)
                     {
                         for(int j=0; j < query2.Count(); j++)
@@ -237,11 +237,11 @@ namespace ClassRegister.Handling
                 }
                 else if(this.Teacher == true)
                 {
-                    IList<Model.NSubject> query1 =
+                    IList<Model.NSubject> query1 = await
                         SessionFactory.session
                         .QueryOver<Model.NSubject>()
                         .Where(x => x.TeacherId == User.Id)
-                        .List();
+                        .ListAsync();
                     foreach(var x in query1)
                     {
                         SubjectList.Add(x); 
@@ -253,23 +253,23 @@ namespace ClassRegister.Handling
 
         }
 
-        public Model.NTeacher getTeacherInfo()
+        public async Task<Model.NTeacher> getTeacherInfo()
         {
             //Metoda zwraca nauczyciela który prowadzi wybrany przedmiot
             SessionFactory.Configuration();
             using (SessionFactory.session)
             {
-                    IList<Model.NSubject> query1 =
+                    IList<Model.NSubject> query1 = await
                     SessionFactory.session
                     .QueryOver<Model.NSubject>()
                     .Where(x => x.SubId == SelectedSubId)
-                    .List();
+                    .ListAsync();
                 
-                    IList<Model.NTeacher> query2 =
+                    IList<Model.NTeacher> query2 = await
                         SessionFactory.session
                         .QueryOver<Model.NTeacher>()
                         .Where(x => x.Id == query1.ElementAt(0).TeacherId)
-                        .List();
+                        .ListAsync();
 
                     return query2.ElementAt(0);             
             }

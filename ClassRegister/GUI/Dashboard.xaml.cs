@@ -27,8 +27,8 @@ namespace ClassRegister.GUI
         {
             DashH = new Handling.DashboardHandle();
             InitializeComponent();
-            HomeCtrl.Visibility = Visibility.Visible;
-            SLBox.ItemsSource = DashH.t1DataLoad();
+            this.LoadDashboardAsync();
+            
         }
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
@@ -128,15 +128,18 @@ namespace ClassRegister.GUI
         }
 
 
-        private void showGrades()
+        private async void showGrades()
         {
                 if (DashH.Student == true)
                 {
-                    //Wczytywanie danych do kontrolki DataGrid
-                    //Pobieranie danych i zapisywanie ich do Gridu 
-                    //w klasie z obsługą Handling.DashboardHandle
+                //Wczytywanie danych do kontrolki DataGrid
+                //Pobieranie danych i zapisywanie ich do Gridu 
+                //w klasie z obsługą Handling.DashboardHandle
+                    List<Task<List<Model.NStudentGrades>>> tasks = new List<Task<List<Model.NStudentGrades>>>();
+                    tasks.Add(Task.Run(() => DashH.dataLoad()));
+                    var data2 = await Task.WhenAll(tasks);
+                    Grades.ItemsSource = data2.ElementAt(0);               
                     myPersonalDataHide();
-                    DashH.dataLoad(Grades);
                     HomeCtrl.Visibility = Visibility.Hidden;
                     SBLBox.Visibility = Visibility.Hidden;
                     SBtn.Visibility = Visibility.Hidden;
@@ -304,9 +307,10 @@ namespace ClassRegister.GUI
                 BBtn.Visibility = Visibility.Hidden;
             }
         }
-
-        private void nextButtonClicker()
+        
+        private async void nextButtonClicker()
         {
+            List<Task<List<String>>> tasks = new List<Task<List<string>>>();
             if (clickCounter == 0)
             {
                 if (SLBox.SelectedItem != null)
@@ -314,8 +318,10 @@ namespace ClassRegister.GUI
                     //Przechodzenie z listy przedmiotów, które prowadzi zalogowany nauczyciel na listę grup
                     //które mają dany przedmiot
                     DashH.SelectedSubId = DashH.SubjectList.ElementAt(SLBox.SelectedIndex).SubId;
-                    SLBox.Visibility = Visibility.Hidden;
-                    GLBox.ItemsSource = DashH.t2DataLoad();
+                    tasks.Add(Task.Run(() => DashH.t2DataLoad()));
+                    var items = await Task.WhenAll(tasks);
+                    GLBox.ItemsSource = items.ElementAt(0);
+                    SLBox.Visibility = Visibility.Hidden;                    
                     GLBox.Visibility = Visibility.Visible;
                     clickCounter++;
                 }
@@ -328,8 +334,10 @@ namespace ClassRegister.GUI
                     //Przechodzenie z listy grup, które mają dany przedmiot
                     //na listę studentów podpiętych do tych grup
                     DashH.SelectedGrId = DashH.GroupList.ElementAt(GLBox.SelectedIndex).GroupId;
-                    GLBox.Visibility = Visibility.Hidden;
-                    STLBox.ItemsSource = DashH.t3DataLoad();
+                    tasks.Add(Task.Run(() => DashH.t3DataLoad()));
+                    var items = await Task.WhenAll(tasks);
+                    STLBox.ItemsSource = items.ElementAt(0);
+                    GLBox.Visibility = Visibility.Hidden;                   
                     STLBox.Visibility = Visibility.Visible;
                     clickCounter++;
                 }
@@ -356,7 +364,7 @@ namespace ClassRegister.GUI
                 if (GRLBox.SelectedItem != null)
                 {
                     float grade = (float)GRLBox.SelectedItem;
-                    DashH.addGrade(DashH.SelectedStudId, DashH.SelectedSubId, grade);
+                    await Task.Run(() => DashH.addGrade(DashH.SelectedStudId, DashH.SelectedSubId, grade));
                     GRLBox.Visibility = Visibility.Hidden;
                     myPersonalDataHide();
                     HomeCtrl.Visibility = Visibility.Visible;
@@ -420,13 +428,16 @@ namespace ClassRegister.GUI
             TBlock2.Visibility = Visibility.Visible;
         }
 
-        private void mySubjects()
+        private async void mySubjects()
         {
             //Ukrywanie, pokazywanie etc
+            List<Task<List<String>>> tasks = new List<Task<List<string>>>();
+            tasks.Add(Task.Run(() => DashH.getSubjectInfo()));
+            var items = await Task.WhenAll(tasks);
+            SBLBox.ItemsSource = items.ElementAt(0);
             TitleL.Content = MSBtn.Content;
             SBtn.Content = "Pokaż dane";
-            DashH.SelectedSubId = 0;
-            SBLBox.ItemsSource = DashH.getSubjectInfo();
+            DashH.SelectedSubId = 0;           
             myPersonalDataHide();
             HomeCtrl.Visibility = Visibility.Hidden;
             Grades.Visibility = Visibility.Hidden;
@@ -443,15 +454,19 @@ namespace ClassRegister.GUI
             
         }
        
-        private void showTeacherInfo()
+        private async void showTeacherInfo()
         {
             //Pokazuje lejbelki o nauczycielu wykładającym dany przedmiot
             if (DashH.Student == true)
             {
+                
                 clickCounter = -2;
                 TitleL.Content = "Dane prowadzącego";
-                DashH.SelectedSubId = DashH.SubjectList2.ElementAt(SBLBox.SelectedIndex).SubId;              
-                Model.NTeacher teacher = DashH.getTeacherInfo();
+                DashH.SelectedSubId = DashH.SubjectList2.ElementAt(SBLBox.SelectedIndex).SubId;
+                List<Task<Model.NTeacher>> tasks = new List<Task<Model.NTeacher>>();
+                tasks.Add(Task.Run(() => DashH.getTeacherInfo()));
+                var teach = await Task.WhenAll(tasks);
+                Model.NTeacher teacher = teach.ElementAt(0);
                 FNLabel.Content = teacher.FirstName;
                 LNLabel.Content = teacher.LastName;
                 EMLabel.Content = teacher.Email;
@@ -470,6 +485,16 @@ namespace ClassRegister.GUI
                 infoClik = true;
                 SBtn.Content = "Wróc";
             }            
+        }
+
+        private async void LoadDashboardAsync()
+        {
+            
+            List<Task<List<String>>> tasks = new List<Task<List<string>>>();
+            tasks.Add(Task.Run(() => DashH.t1DataLoad()));
+            var items = await Task.WhenAll(tasks);
+            SLBox.ItemsSource = items.ElementAt(0);
+            HomeCtrl.Visibility = Visibility.Visible;
         }
 
 

@@ -32,7 +32,7 @@ namespace ClassRegister.Handling
             if (SignUp.Student == true)
             {
                 this.Student = true;
-                this.grAttach();
+                this.GroupAttach();
                 this.UserFunction = "Student";
 
             }else if (SignUp.Teacher == true)
@@ -275,7 +275,7 @@ namespace ClassRegister.Handling
             }
         }
 
-        private void grAttach()
+        private void GroupAttach()
         {
             //Jeśli użytkownik jest studentem, to znajduję grupę w której się znajduje 
             //i przypisuje ją do właściwości StudentGroup, w celu jej późniejszego wyświetlenia
@@ -283,13 +283,12 @@ namespace ClassRegister.Handling
             SessionFactory.Configuration();
             using (SessionFactory.session)
             {
-                IList<Model.NStudent> list =
-                    SessionFactory.session
+                IList<Model.NStudent> list = SessionFactory.session
                     .QueryOver<Model.NStudent>()
                     .Where(x => x.Id == this.User.Id)
                     .List();
-                int grId = list.ElementAt(0).GroupId;
-                IList<Model.NGroup> list2 =
+                int grId = list.ElementAt(0).GroupId;                                   
+                IList<Model.NGroup> list2 = 
                     SessionFactory.session
                     .QueryOver<Model.NGroup>()
                     .Where(x => x.GroupId == grId)
@@ -297,7 +296,8 @@ namespace ClassRegister.Handling
                 this.StudentGroup = list2.ElementAt(0).GroupName;
                 this.StudentGroupId = list2.ElementAt(0).GroupId;
             }
-        }
+        }     
+               
         
     }
 }

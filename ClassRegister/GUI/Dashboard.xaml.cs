@@ -60,32 +60,32 @@ namespace ClassRegister.GUI
         private void GBtn_Click(object sender, RoutedEventArgs e)
         {
             //Pokazywanie ocen
-            this.showGrades();
+            this.ShowGradesAsync();
         }
 
         private void HBtn_Click(object sender, RoutedEventArgs e)
         {
             //Przejście na stronę główną
-            this.enterHome();
+            this.EnterHome();
             TitleL.Content = HBtn.Content;
         }
 
         private void AGBtn_Click(object sender, RoutedEventArgs e)
         {
             //Rozpoczęcie dodawania oceny
-            this.addGradeProcessStart();
+            this.AddGradeProcessStart();
         }
 
         private void LOBtn_Click(object sender, RoutedEventArgs e)
         {
             //Wylogowanie
-            this.logOut();
+            this.LogOut();
 
         }
         private void MABtn_Click(object sender, RoutedEventArgs e)
         {
             //Pokazywanie danych zalogowanego użytkownika
-            this.myPersonalData();
+            this.MyPersonalData();
             TitleL.Content = MABtn.Content;
         }
                   
@@ -93,20 +93,20 @@ namespace ClassRegister.GUI
         {
             //Przechodzenie przy listBoxach wstecz
             //przy dodawaniu oceny (wybór grupy, przedmiotu, studenta etc.)
-            this.backButtonClicker();
+            this.BackButtonClicker();
         }
 
         private void NBtn_Click(object sender, RoutedEventArgs e)
         {
             //Przechodzenie przy listBoxach naprzód
             //przy dodawaniu oceny, analogicznie
-            this.nextButtonClicker(); 
+            this.NextButtonClickerAsync(); 
         }
         
         private void IBtn_Click(object sender, RoutedEventArgs e)
         {
             //Pokazanie fajnego tekściku o projekcie
-            this.showAppInfo();
+            this.ShowAppInfo();
             TitleL.Content = IBtn.Content;
         }
 
@@ -114,7 +114,7 @@ namespace ClassRegister.GUI
         {
             //Pokazuje listę przedmiotów danej grupy/prowadzonych przez danego 
             //pracownika
-            this.mySubjects();
+            this.ShowMySubjectsAsync();
             
         }
 
@@ -122,13 +122,13 @@ namespace ClassRegister.GUI
         {
             if (infoClik == false)
             {
-                this.showTeacherInfo();
+                this.ShowTeacherInfoAsync();
             }
-            else this.mySubjects();            
+            else this.ShowMySubjectsAsync();            
         }
 
 
-        private async void showGrades()
+        private async void ShowGradesAsync()
         {
                 if (DashH.Student == true)
                 {
@@ -136,10 +136,10 @@ namespace ClassRegister.GUI
                 //Pobieranie danych i zapisywanie ich do Gridu 
                 //w klasie z obsługą Handling.DashboardHandle
                     List<Task<List<Model.NStudentGrades>>> tasks = new List<Task<List<Model.NStudentGrades>>>();
-                    tasks.Add(Task.Run(() => DashH.dataLoad()));
+                    tasks.Add(Task.Run(() => DashH.GradeDataLoadAsync()));
                     var data2 = await Task.WhenAll(tasks);
                     Grades.ItemsSource = data2.ElementAt(0);               
-                    myPersonalDataHide();
+                    MyPersonalDataHide();
                     HomeCtrl.Visibility = Visibility.Hidden;
                     SBLBox.Visibility = Visibility.Hidden;
                     SBtn.Visibility = Visibility.Hidden;
@@ -151,10 +151,10 @@ namespace ClassRegister.GUI
                 else SignUp.ShowMessage("Tylko dla studentów.");       
         }
 
-        private void enterHome()
+        private void EnterHome()
         {
             //Ukrycie kontrolek i pokzanie ekranu głównego
-            myPersonalDataHide();           
+            MyPersonalDataHide();           
             HomeCtrl.Visibility = Visibility.Visible;
             Grades.Visibility = Visibility.Hidden;
             TBlock2.Visibility = Visibility.Hidden;
@@ -162,17 +162,17 @@ namespace ClassRegister.GUI
             SBLBox.Visibility = Visibility.Hidden;
             SBtn.Visibility = Visibility.Hidden;
             clickCounter = -2;
-            makeGradeAddVisible();
+            MakeGradeAdderVisible();
 
         }
 
-        private void addGradeProcessStart()
+        private void AddGradeProcessStart()
         {
             //Poukrywanie innych kontrolek, sprawdzenie czy można wejść
             //i odpalenie metody z ListBoxami, która jest niżej
             if (DashH.Teacher == true)
             {
-                myPersonalDataHide();
+                MyPersonalDataHide();
                 HomeCtrl.Visibility = Visibility.Hidden;
                 Grades.Visibility = Visibility.Hidden;
                 SBLBox.Visibility = Visibility.Hidden;
@@ -183,15 +183,15 @@ namespace ClassRegister.GUI
                 DashH.SelectedGrId = 0;
                 DashH.SelectedStudId = 0;
                 DashH.SelectedSubId = 0;
-                makeGradeAddVisible();
+                MakeGradeAdderVisible();
             }
             else SignUp.ShowMessage("Tylko dla pracowników.");
         }
 
-        private void logOut()
+        private void LogOut()
         {
             //Ukrywanie kontrolek i powrót do ekranu logowania
-            myPersonalDataHide();
+            MyPersonalDataHide();
             HomeCtrl.Visibility = Visibility.Hidden;
             Grades.Visibility = Visibility.Hidden;
             TBlock2.Visibility = Visibility.Hidden;
@@ -199,7 +199,7 @@ namespace ClassRegister.GUI
             SBtn.Visibility = Visibility.Hidden;
             WATImg.Visibility = Visibility.Visible;
             clickCounter = -2;
-            makeGradeAddVisible();
+            MakeGradeAdderVisible();
             GUI.Exit exit = new GUI.Exit();
             exit.ShowDialog();
             if (exit.Exit_state == true)
@@ -210,7 +210,7 @@ namespace ClassRegister.GUI
             }
         }
 
-        private void myPersonalData()
+        private void MyPersonalData()
         {
             //Pokazanie labeli które pokazują dane użytkownika
             //Chowanie wszystkich innych kontrolek jak wszędzie
@@ -222,7 +222,7 @@ namespace ClassRegister.GUI
             SBtn.Visibility = Visibility.Hidden;
             WATImg.Visibility = Visibility.Visible;
             clickCounter = -2;
-            makeGradeAddVisible();
+            MakeGradeAdderVisible();
             FNLabel.Content = DashH.User.FirstName;
             LNLabel.Content = DashH.User.LastName;
             EMLabel.Content = DashH.User.Email;
@@ -249,7 +249,7 @@ namespace ClassRegister.GUI
             }
         }
 
-        private void backButtonClicker()
+        private void BackButtonClicker()
         {
             //Przechodzenie w tył po listBoxach
             //w procesie dodawania ocenki
@@ -280,7 +280,7 @@ namespace ClassRegister.GUI
             }
         }
 
-        private void makeGradeAddVisible()
+        private void MakeGradeAdderVisible()
         {
             //Odpalenie pierwszego listboxa oraz
             //Przycisków next/back, tylko jeśli clickCounter jest równy 0
@@ -308,7 +308,7 @@ namespace ClassRegister.GUI
             }
         }
         
-        private async void nextButtonClicker()
+        private async void NextButtonClickerAsync()
         {
             List<Task<List<String>>> tasks = new List<Task<List<string>>>();
             if (clickCounter == 0)
@@ -318,7 +318,7 @@ namespace ClassRegister.GUI
                     //Przechodzenie z listy przedmiotów, które prowadzi zalogowany nauczyciel na listę grup
                     //które mają dany przedmiot
                     DashH.SelectedSubId = DashH.SubjectList.ElementAt(SLBox.SelectedIndex).SubId;
-                    tasks.Add(Task.Run(() => DashH.t2DataLoad()));
+                    tasks.Add(Task.Run(() => DashH.DataLoadSecondStepAsync()));
                     var items = await Task.WhenAll(tasks);
                     GLBox.ItemsSource = items.ElementAt(0);
                     SLBox.Visibility = Visibility.Hidden;                    
@@ -334,7 +334,7 @@ namespace ClassRegister.GUI
                     //Przechodzenie z listy grup, które mają dany przedmiot
                     //na listę studentów podpiętych do tych grup
                     DashH.SelectedGrId = DashH.GroupList.ElementAt(GLBox.SelectedIndex).GroupId;
-                    tasks.Add(Task.Run(() => DashH.t3DataLoad()));
+                    tasks.Add(Task.Run(() => DashH.DataLoadThirdStepAsync()));
                     var items = await Task.WhenAll(tasks);
                     STLBox.ItemsSource = items.ElementAt(0);
                     GLBox.Visibility = Visibility.Hidden;                   
@@ -364,15 +364,15 @@ namespace ClassRegister.GUI
                 if (GRLBox.SelectedItem != null)
                 {
                     float grade = (float)GRLBox.SelectedItem;
-                    await Task.Run(() => DashH.addGrade(DashH.SelectedStudId, DashH.SelectedSubId, grade));
+                    await Task.Run(() => DashH.AddGradeAsync(DashH.SelectedStudId, DashH.SelectedSubId, grade));
                     GRLBox.Visibility = Visibility.Hidden;
-                    myPersonalDataHide();
+                    MyPersonalDataHide();
                     HomeCtrl.Visibility = Visibility.Visible;
                     Grades.Visibility = Visibility.Hidden;
                     TBlock2.Visibility = Visibility.Hidden;
                     WATImg.Visibility = Visibility.Hidden;
                     clickCounter = -2;
-                    makeGradeAddVisible();
+                    MakeGradeAdderVisible();
                     Info info = new Info();
                     info.Assign("Dodano ocenę " +
                         grade +
@@ -384,7 +384,7 @@ namespace ClassRegister.GUI
             }
         }
 
-        private void myPersonalDataHide()
+        private void MyPersonalDataHide()
         {
             //Ukrywanie labeli które pokazują się w "Moje dane"
             FNLabel.Visibility = Visibility.Hidden;
@@ -399,14 +399,14 @@ namespace ClassRegister.GUI
             NRL.Visibility = Visibility.Hidden;
         }
 
-        private void showAppInfo()
+        private void ShowAppInfo()
         {
             //sprawdza typ zalogowanego użytkownika
             //i jako taki bajer wyświetla to w info o apce
 
             clickCounter = -2;
-            myPersonalDataHide();
-            makeGradeAddVisible();
+            MyPersonalDataHide();
+            MakeGradeAdderVisible();
             Grades.Visibility = Visibility.Hidden;
             HomeCtrl.Visibility = Visibility.Hidden;
             SBLBox.Visibility = Visibility.Hidden;
@@ -428,23 +428,23 @@ namespace ClassRegister.GUI
             TBlock2.Visibility = Visibility.Visible;
         }
 
-        private async void mySubjects()
+        private async void ShowMySubjectsAsync()
         {
             //Ukrywanie, pokazywanie etc
             List<Task<List<String>>> tasks = new List<Task<List<string>>>();
-            tasks.Add(Task.Run(() => DashH.getSubjectInfo()));
+            tasks.Add(Task.Run(() => DashH.GetSubjectsAsync()));
             var items = await Task.WhenAll(tasks);
             SBLBox.ItemsSource = items.ElementAt(0);
             TitleL.Content = MSBtn.Content;
             SBtn.Content = "Pokaż dane";
             DashH.SelectedSubId = 0;           
-            myPersonalDataHide();
+            MyPersonalDataHide();
             HomeCtrl.Visibility = Visibility.Hidden;
             Grades.Visibility = Visibility.Hidden;
             TBlock2.Visibility = Visibility.Hidden;
             WATImg.Visibility = Visibility.Visible;
             clickCounter = -2;
-            makeGradeAddVisible();
+            MakeGradeAdderVisible();
             SBLBox.Visibility = Visibility.Visible;
             if (DashH.Student == true)
             {
@@ -454,7 +454,7 @@ namespace ClassRegister.GUI
             
         }
        
-        private async void showTeacherInfo()
+        private async void ShowTeacherInfoAsync()
         {
             //Pokazuje lejbelki o nauczycielu wykładającym dany przedmiot
             if (DashH.Student == true)
@@ -464,13 +464,13 @@ namespace ClassRegister.GUI
                 TitleL.Content = "Dane prowadzącego";
                 DashH.SelectedSubId = DashH.SubjectList2.ElementAt(SBLBox.SelectedIndex).SubId;
                 List<Task<Model.NTeacher>> tasks = new List<Task<Model.NTeacher>>();
-                tasks.Add(Task.Run(() => DashH.getTeacherInfo()));
+                tasks.Add(Task.Run(() => DashH.GetTeacherInfoAsync()));
                 var teach = await Task.WhenAll(tasks);
                 Model.NTeacher teacher = teach.ElementAt(0);
                 FNLabel.Content = teacher.FirstName;
                 LNLabel.Content = teacher.LastName;
                 EMLabel.Content = teacher.Email;
-                myPersonalDataHide();
+                MyPersonalDataHide();
                 HomeCtrl.Visibility = Visibility.Hidden;
                 Grades.Visibility = Visibility.Hidden;
                 TBlock2.Visibility = Visibility.Hidden;
@@ -491,7 +491,7 @@ namespace ClassRegister.GUI
         {
             
             List<Task<List<String>>> tasks = new List<Task<List<string>>>();
-            tasks.Add(Task.Run(() => DashH.t1DataLoad()));
+            tasks.Add(Task.Run(() => DashH.DataLoadFirstStepAsync()));
             var items = await Task.WhenAll(tasks);
             SLBox.ItemsSource = items.ElementAt(0);
             HomeCtrl.Visibility = Visibility.Visible;

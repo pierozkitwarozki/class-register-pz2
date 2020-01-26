@@ -55,7 +55,7 @@ namespace ClassRegister.Handling
             }           
         }
 
-        public async Task<List<string>> t1DataLoad()
+        public async Task<List<string>> DataLoadFirstStepAsync()
         {
             //Metoda wczytująca przedmioty, których uczy zalogowany pracownik
             //Zwracająca listę z nazwami tych przedmiotów, 
@@ -77,10 +77,10 @@ namespace ClassRegister.Handling
                 }
 
         }
-        public async Task<List<string>> t2DataLoad()
+        public async Task<List<string>> DataLoadSecondStepAsync()
         {
             //Metoda wczytująca grupy w których wykładany jest wybrany wcześniej przedmiot
-            //i zwracająca listę z nazwami tych grup, analogicznie jak w t1DataLoad
+            //i zwracająca listę z nazwami tych grup, analogicznie jak w DataLoadFirstStep
             SessionFactory.Configuration();
             using (SessionFactory.session)
             {
@@ -109,7 +109,7 @@ namespace ClassRegister.Handling
         }
 
 
-        public async Task<List<string>> t3DataLoad()
+        public async Task<List<string>> DataLoadThirdStepAsync()
         {
             //Metoda wczytująca studentów z wybranej grupy i analogicznie
             //zwracająca listę z ich imionami + nazwiskami 
@@ -132,7 +132,7 @@ namespace ClassRegister.Handling
                 }
         }
 
-        public async Task<List<Model.NStudentGrades>> dataLoad()
+        public async Task<List<Model.NStudentGrades>> GradeDataLoadAsync()
         {
             //Metoda wczytująca oceny zalogowanego studenta
             //I przypisująca je wraz z nazwą przedmiotu do 
@@ -165,7 +165,7 @@ namespace ClassRegister.Handling
                 }           
         }
 
-        public async Task addGrade(int studentId, int subjectId, float grade) //Metoda dodawania ocen
+        public async Task AddGradeAsync(int studentId, int subjectId, float grade) //Metoda dodawania ocen
         {
             SessionFactory.Configuration();
             using (SessionFactory.session)
@@ -203,7 +203,7 @@ namespace ClassRegister.Handling
             }
         }
 
-        public async Task <List<string>> getSubjectInfo()
+        public async Task <List<string>> GetSubjectsAsync()
         {
             //Metoda zwraca litę z nazwami przedmiotów na które uczęszcza student,
             //lub które prowadzi pracownik, w zależności od tego kto jest zalogowany
@@ -253,7 +253,7 @@ namespace ClassRegister.Handling
 
         }
 
-        public async Task<Model.NTeacher> getTeacherInfo()
+        public async Task<Model.NTeacher> GetTeacherInfoAsync()
         {
             //Metoda zwraca nauczyciela który prowadzi wybrany przedmiot
             SessionFactory.Configuration();
